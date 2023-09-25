@@ -1,6 +1,6 @@
-import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import React, { useState, useEffect } from "react";
 import {
-  SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
@@ -8,49 +8,67 @@ import {
   View,
   TouchableOpacity,
   ImageBackground,
+  Image,
+  Animated,
 } from "react-native";
 
 export function SignIn() {
+  const [fadeAnimation] = useState(new Animated.Value(0));
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    Animated.timing(fadeAnimation, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  }, []);
+
   return (
     <ImageBackground
-      source={require("./assets/chat.png")} // Replace with your background image
+      source={require("./assets/chat.png")}
       style={styles.background}
     >
-      <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content" />
 
-        <View style={styles.content}>
-          <Text style={styles.title}>Sign In</Text>
-
-          <View style={styles.inputContainer}>
-            <Text style={styles.label}>Mobile Number</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Mobile"
-              keyboardType="phone-pad"
-              placeholderTextColor="#888"
-            />
-          </View>
-
-          <View style={styles.inputContainer}>
-            <Text style={styles.label}>Password</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              secureTextEntry={true}
-              placeholderTextColor="#888"
-            />
-          </View>
+      <View style={styles.container}>
+        <Animated.View style={[styles.content, { opacity: fadeAnimation }]}>
+          <Image source={require("./assets/logo.png")} style={styles.logo} />
+          <Text style={styles.title}>SIGN IN</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Mobile Number"
+            keyboardType="number-pad"
+            placeholderTextColor="#fff"
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Password"
+            secureTextEntry={true}
+            placeholderTextColor="#fff"
+          />
 
           <TouchableOpacity style={styles.signInButton}>
             <Text style={styles.buttonText}>Sign In</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.signUpButton}>
-            <Text style={styles.buttonText}>Don't have an account? Sign Up</Text>
+          <TouchableOpacity style={styles.forgotPassword}>
+            <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
           </TouchableOpacity>
-        </View>
-      </SafeAreaView>
+
+          <View style={styles.signUpContainer}>
+            <Text style={styles.signUpText}>Don't have an account?</Text>
+            <TouchableOpacity style={styles.signUpButton}>
+              <Text
+                style={styles.signUpButtonText}
+                onPress={() => navigation.navigate("SignUp")}
+              >
+                Sign Up
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </Animated.View>
+      </View>
     </ImageBackground>
   );
 }
@@ -62,40 +80,37 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
+    paddingHorizontal: 20,
   },
   content: {
-    width: "80%",
-    backgroundColor: "rgba(255, 255, 255, 0.8)", // Semi-transparent white background
     borderRadius: 10,
     padding: 20,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  logo: {
+    width: 100,
+    height: 100,
+    alignSelf: "center",
+    marginBottom: 50,
   },
   title: {
-    fontSize: 30,
+    fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 20,
+    marginBottom: 30,
     textAlign: "center",
-    color: "#333",
-  },
-  inputContainer: {
-    marginBottom: 15,
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 5,
-    color: "#333",
+    color: "#fff",
   },
   input: {
-    width: "100%",
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    backgroundColor: "#fff",
-    borderColor: "#aaa",
+    height: 50,
+    backgroundColor: "rgba(255, 255, 255, 0.2)",
+    borderColor: "#fff",
     borderWidth: 1,
     borderRadius: 5,
+    paddingHorizontal: 15,
+    marginBottom: 15,
     fontSize: 16,
-    color: "#333",
+    color: "#fff",
   },
   signInButton: {
     backgroundColor: "#007BFF",
@@ -103,13 +118,34 @@ const styles = StyleSheet.create({
     padding: 15,
     alignItems: "center",
   },
-  signUpButton: {
-    alignItems: "center",
-    marginTop: 10,
-  },
   buttonText: {
     color: "#fff",
     fontSize: 18,
+    fontWeight: "bold",
+  },
+  forgotPassword: {
+    alignItems: "center",
+    marginTop: 10,
+  },
+  forgotPasswordText: {
+    color: "#fff",
+  },
+  signUpContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20,
+  },
+  signUpText: {
+    color: "#fff",
+    marginRight: 5,
+  },
+  signUpButton: {
+    borderBottomWidth: 1,
+    borderBottomColor: "#fff",
+  },
+  signUpButtonText: {
+    color: "#fff",
     fontWeight: "bold",
   },
 });
