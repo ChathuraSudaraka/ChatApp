@@ -6,57 +6,110 @@ import {
   Text,
   TextInput,
   View,
-  Button, // Import the Button component
+  TouchableOpacity,
+  ImageBackground,
 } from "react-native";
 
 export function SignIn() {
-  const ui = (
-    <SafeAreaView style={style.container}>
-      <StatusBar hidden={true} />
+  return (
+    <ImageBackground
+      source={require("./assets/chat.png")} // Replace with your background image
+      style={styles.background}
+    >
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="light-content" />
 
-      <View style={style.container}>
-        <Text style={style.title}>Sign In</Text>
-        <Text>Mobile Number</Text>
-        <TextInput
-          style={style.input}
-          placeholder="Mobile"
-        />
-        <Text>Password</Text>
-        <TextInput
-          style={style.input}
-          placeholder="Password"
-          // onChangeText={(text) => setPassword(text)}
-          // value={password}
-        />
-        <Button title="Sign In" />
-        <Button
-          title="Don't have an account? Sign Up"
-          // onPress={() => navigation.navigate("SignUp")}
-        />
-      </View>
-    </SafeAreaView>
+        <View style={styles.content}>
+          <Text style={styles.title}>Sign In</Text>
+
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Mobile Number</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Mobile"
+              keyboardType="phone-pad"
+              placeholderTextColor="#888"
+            />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Password</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              secureTextEntry={true}
+              placeholderTextColor="#888"
+            />
+          </View>
+
+          <TouchableOpacity style={styles.signInButton}>
+            <Text style={styles.buttonText}>Sign In</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.signUpButton}>
+            <Text style={styles.buttonText}>Don't have an account? Sign Up</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    </ImageBackground>
   );
-  return ui;
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: "cover",
+  },
   container: {
     flex: 1,
-    justifyContent: "center",
-    backgroundColor: "#fff",
     alignItems: "center",
+    justifyContent: "center",
+  },
+  content: {
+    width: "80%",
+    backgroundColor: "rgba(255, 255, 255, 0.8)", // Semi-transparent white background
+    borderRadius: 10,
+    padding: 20,
   },
   title: {
-    fontSize: 24,
-    marginBottom: 10,
+    fontSize: 30,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
+    color: "#333",
+  },
+  inputContainer: {
+    marginBottom: 15,
+  },
+  label: {
+    fontSize: 16,
+    marginBottom: 5,
+    color: "#333",
   },
   input: {
-    width: "80%",
-    padding: 15,
-
+    width: "100%",
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     backgroundColor: "#fff",
-    borderColor: "#ccc",
+    borderColor: "#aaa",
     borderWidth: 1,
-    marginBottom: 20,
+    borderRadius: 5,
+    fontSize: 16,
+    color: "#333",
+  },
+  signInButton: {
+    backgroundColor: "#007BFF",
+    borderRadius: 5,
+    padding: 15,
+    alignItems: "center",
+  },
+  signUpButton: {
+    alignItems: "center",
+    marginTop: 10,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
