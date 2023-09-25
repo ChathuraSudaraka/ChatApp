@@ -10,6 +10,7 @@ import {
   ImageBackground,
   Image,
   Animated,
+  SafeAreaView, // Import SafeAreaView
 } from "react-native";
 
 export function SignIn() {
@@ -25,55 +26,60 @@ export function SignIn() {
   }, []);
 
   return (
-    <ImageBackground
-      source={require("./assets/chat.png")}
-      style={styles.background}
-    >
-      <StatusBar barStyle="light-content" />
+    <SafeAreaView style={styles.safeArea}>
+      <ImageBackground
+        source={require("./assets/chat.png")}
+        style={styles.background}
+      >
+        <StatusBar barStyle="light-content" />
 
-      <View style={styles.container}>
-        <Animated.View style={[styles.content, { opacity: fadeAnimation }]}>
-          <Image source={require("./assets/logo.png")} style={styles.logo} />
-          <Text style={styles.title}>SIGN IN</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Mobile Number"
-            keyboardType="number-pad"
-            placeholderTextColor="#fff"
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            secureTextEntry={true}
-            placeholderTextColor="#fff"
-          />
+        <View style={styles.container}>
+          <Animated.View style={[styles.content, { opacity: fadeAnimation }]}>
+            <Image source={require("./assets/logo.png")} style={styles.logo} />
+            <Text style={styles.title}>SIGN IN</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Mobile Number"
+              keyboardType="number-pad"
+              placeholderTextColor="#fff"
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              secureTextEntry={true}
+              placeholderTextColor="#fff"
+            />
 
-          <TouchableOpacity style={styles.signInButton}>
-            <Text style={styles.buttonText}>Sign In</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.forgotPassword}>
-            <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-          </TouchableOpacity>
-
-          <View style={styles.signUpContainer}>
-            <Text style={styles.signUpText}>Don't have an account?</Text>
-            <TouchableOpacity style={styles.signUpButton}>
-              <Text
-                style={styles.signUpButtonText}
-                onPress={() => navigation.navigate("SignUp")}
-              >
-                Sign Up
-              </Text>
+            <TouchableOpacity style={styles.signInButton}>
+              <Text style={styles.buttonText}>Sign In</Text>
             </TouchableOpacity>
-          </View>
-        </Animated.View>
-      </View>
-    </ImageBackground>
+
+            <TouchableOpacity style={styles.forgotPassword}>
+              <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+            </TouchableOpacity>
+
+            <View style={styles.signUpContainer}>
+              <Text style={styles.signUpText}>Don't have an account?</Text>
+              <TouchableOpacity style={styles.signUpButton}>
+                <Text
+                  style={styles.signUpButtonText}
+                  onPress={() => navigation.navigate("SignUp")}
+                >
+                  Sign Up
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </Animated.View>
+        </View>
+      </ImageBackground>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
   background: {
     flex: 1,
     resizeMode: "cover",
