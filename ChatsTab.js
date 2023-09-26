@@ -10,7 +10,6 @@ import {
 } from "react-native";
 
 const ChatsScreen = ({ navigation }) => {
-  // Define your chatData
   const chatData = [
     {
       id: "1",
@@ -64,29 +63,39 @@ const ChatsScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF", // White background color
+    backgroundColor: "#1E1E1E", // Dark gray background color
   },
-  // Add your specific styles for the Chats screen here
-  // Example:
   chatItem: {
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderBottomWidth: 0.5,
-    borderBottomColor: "#DCDCDC", // Light gray separator color
-    backgroundColor: "#FFFFFF", // White chat item background color
+    borderBottomColor: "#3A3A3A", // Light gray separator color
+    backgroundColor: "#2A2A2A", // Darker gray chat item background color
+  },
+  profileImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 16,
+  },
+  textContainer: {
+    flex: 1,
   },
   name: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#000000", // Black text color for names
+    color: "#FFFFFF", // White text color for names
   },
   message: {
     fontSize: 16,
-    color: "#000000", // Black text color for messages
+    color: "#CCCCCC", // Light gray text color for messages
   },
-  // Add more styles as needed
+  timestamp: {
+    fontSize: 14,
+    color: "#4CAF50", // Green text color for timestamps
+  },
 });
 
 export default ChatsScreen;

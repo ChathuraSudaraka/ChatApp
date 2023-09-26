@@ -24,13 +24,17 @@ const CallsScreen = () => {
   const renderItem = ({ item }) => (
     <View style={styles.callItem}>
       <Image source={item.profileImage} style={styles.callProfileImage} />
-      <View style={styles.callTextContainer}>
-        <Text style={styles.callName}>{item.name}</Text>
-        <Text style={styles.callTimestamp}>{item.timestamp}</Text>
+      <View style={styles.callDetails}>
+        <View style={styles.callDetailRow}>
+          <Text style={styles.callName}>{item.name}</Text>
+          <Text style={styles.callTimestamp}>{item.timestamp}</Text>
+        </View>
+        <View style={styles.callDetailRow}>
+          <Text style={styles.callType}>
+            {item.callType === "incoming" ? "Incoming" : "Outgoing"}
+          </Text>
+        </View>
       </View>
-      <Text style={styles.callType}>
-        {item.callType === "incoming" ? "Incoming" : "Outgoing"}
-      </Text>
     </View>
   );
 
@@ -48,20 +52,45 @@ const CallsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF", // White background color
+    backgroundColor: "#1E1E1E", // White background color
   },
-  // Add your specific styles for the Calls screen here
-  // Example:
   callItem: {
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderBottomWidth: 0.5,
-    borderBottomColor: "#DCDCDC", // Light gray separator color
-    backgroundColor: "#FFFFFF", // White call item background color
+    borderBottomColor: "#3A3A3A", // Light gray separator color
+    backgroundColor: "#2A2A2A", // White call item background color
   },
-  // Add more styles as needed
+  callProfileImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 16,
+  },
+  callDetails: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  callDetailRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  callName: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#FFFFFF", // Black text color for names
+  },
+  callTimestamp: {
+    fontSize: 16,
+    color: "#CCCCCC", // Gray text color for timestamps
+  },
+  callType: {
+    fontSize: 16,
+    color: "#4CAF50", // Blue text color for call type
+  },
 });
 
 export default CallsScreen;

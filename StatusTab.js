@@ -1,7 +1,18 @@
 import React from "react";
-import { SafeAreaView, StyleSheet, View, FlatList, Text, Image } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  FlatList,
+  Text,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native"; // Import navigation hook
 
 const StatusScreen = () => {
+  const navigation = useNavigation(); // Initialize navigation
+
   // Define your statusData
   const statusData = [
     {
@@ -20,13 +31,27 @@ const StatusScreen = () => {
   ];
 
   const renderItem = ({ item }) => (
-    <View style={styles.statusItem}>
-      <Image source={item.statusImage} style={styles.statusImage} />
+    <TouchableOpacity
+      style={styles.statusItem}
+      onPress={() => {
+        const statusImages = [
+          require("./assets/logo.png"),
+          require("./assets/Load.png"),
+          require("./assets/chat.png"),
+          require("./assets/SignUp.png"),
+          require("./assets/chat.png"),
+        ];
+        navigation.navigate("ViewStatus", { statusImages });
+      }}
+    >
+      <View style={styles.statusImageContainer}>
+        <Image source={item.statusImage} style={styles.statusImage} />
+      </View>
       <View style={styles.statusTextContainer}>
         <Text style={styles.statusName}>{item.name}</Text>
         <Text style={styles.statusTimeAgo}>{item.timeAgo}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
@@ -43,20 +68,42 @@ const StatusScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF", // White background color
+    backgroundColor: "#1E1E1E", // White background color
   },
-  // Add your specific styles for the Status screen here
-  // Example:
   statusItem: {
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderBottomWidth: 0.5,
-    borderBottomColor: "#DCDCDC", // Light gray separator color
-    backgroundColor: "#FFFFFF", // White status item background color
+    borderBottomColor: "#3A3A3A", // Light gray separator color
+    backgroundColor: "#2A2A2A", // White status item background color
   },
-  // Add more styles as needed
+  statusImageContainer: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: "#E0E0E0", // Gray background for status image
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  statusImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+  },
+  statusTextContainer: {
+    marginLeft: 16,
+  },
+  statusName: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#FFFFFF", // Black text color for names
+  },
+  statusTimeAgo: {
+    fontSize: 16,
+    color: "#4CAF50", // Gray text color for timestamps
+  },
 });
 
 export default StatusScreen;
