@@ -11,14 +11,17 @@ import {
   Image,
   Animated,
   SafeAreaView,
+  Modal,
+  Pressable,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker"; // Import ImagePicker
-import ModalSelector from "react-native-modal-selector"; // Import the modal selector component
+import ModalSelector from "react-native-modal-selector";
 
 export function SignUp() {
   const [fadeAnimation] = useState(new Animated.Value(0));
   const [profileImage, setProfileImage] = useState(null);
   const [service, setService] = useState("");
+  const [modalVisible, setModalVisible] = useState(false); // State for the modal
   const navigation = useNavigation();
   const imagePickerRef = useRef(null);
 
@@ -31,13 +34,45 @@ export function SignUp() {
   }, []);
 
   const handleImagePick = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync();
+    setModalVisible(true); // Show the image source modal
+  };
 
-    if (!result.canceled && result.assets.length > 0) {
-      const selectedAsset = result.assets[0];
+  const selectImageSource = async (source) => {
+    setModalVisible(false); // Close the image source modal
 
-      if (selectedAsset) {
-        setProfileImage(selectedAsset.uri);
+    if (source === "camera") {
+      const permissionResult =
+        await ImagePicker.requestCameraPermissionsAsync();
+
+      if (permissionResult.granted === false) {
+        alert("Permission to access the camera is required!");
+        return;
+      }
+
+      const result = await ImagePicker.launchCameraAsync();
+
+      if (!result.canceled) {
+        const { assets } = result;
+        if (assets.length > 0) {
+          setProfileImage(assets[0].uri);
+        }
+      }
+    } else if (source === "gallery") {
+      const permissionResult =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+      if (permissionResult.granted === false) {
+        alert("Permission to access the camera roll is required!");
+        return;
+      }
+
+      const result = await ImagePicker.launchImageLibraryAsync();
+
+      if (!result.canceled) {
+        const { assets } = result;
+        if (assets.length > 0) {
+          setProfileImage(assets[0].uri);
+        }
       }
     }
   };
@@ -56,7 +91,6 @@ export function SignUp() {
             <TouchableOpacity
               style={styles.profileImageContainer}
               onPress={handleImagePick}
-              ref={imagePickerRef}
             >
               {profileImage ? (
                 <Image
@@ -117,18 +151,50 @@ export function SignUp() {
             </TouchableOpacity>
             <View style={styles.signInContainer}>
               <Text style={styles.signInText}>Already have an account?</Text>
-              <TouchableOpacity style={styles.signInButton}>
-                <Text
-                  style={styles.signInButtonText}
-                  onPress={() => navigation.goBack()}
-                >
-                  Sign In
-                </Text>
+              <TouchableOpacity
+                style={styles.signInButton}
+                onPress={() => navigation.goBack()}
+              >
+                <Text style={styles.signInButtonText}>Sign In</Text>
               </TouchableOpacity>
             </View>
           </Animated.View>
         </View>
       </ImageBackground>
+
+      {/* Image Source Modal */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Select Image Source</Text>
+            <Pressable
+              style={styles.modalButton}
+              onPress={() => selectImageSource("camera")}
+            >
+              <Text style={styles.modalButtonText}>Camera</Text>
+            </Pressable>
+            <Pressable
+              style={styles.modalButton}
+              onPress={() => selectImageSource("gallery")}
+            >
+              <Text style={styles.modalButtonText}>Gallery</Text>
+            </Pressable>
+            <Pressable
+              style={styles.modalButton}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
+              <Text style={styles.modalButtonText}>Cancel</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -178,6 +244,11 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
   },
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
   input: {
     height: 50,
     backgroundColor: "rgba(255, 255, 255, 0.2)",
@@ -198,11 +269,6 @@ const styles = StyleSheet.create({
     padding: 15,
     alignItems: "center",
   },
-  buttonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
   signInContainer: {
     flexDirection: "row",
     justifyContent: "center",
@@ -220,6 +286,37 @@ const styles = StyleSheet.create({
   signInButtonText: {
     color: "#fff",
     fontWeight: "bold",
+  },
+  // Modal styles
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    width: 300,
+    padding: 20,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  modalButton: {
+    width: 200,
+    padding: 10,
+    backgroundColor: "#007BFF",
+    borderRadius: 5,
+    alignItems: "center",
+    marginTop: 10,
+  },
+  modalButtonText: {
+    color: "#fff",
+    fontSize: 16,
   },
 });
 

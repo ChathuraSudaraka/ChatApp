@@ -49,14 +49,12 @@ export function SignIn() {
               secureTextEntry={true}
               placeholderTextColor="#fff"
             />
-            <View onPress={() => navigation.navigate("Home")}>
-              <TouchableOpacity
-                style={styles.signInButton}
-                onPress={() => navigation.navigate("Home")}
-              >
-                <Text style={styles.buttonText}>Sign In</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              style={styles.signInButton}
+              onPress={() => navigation.navigate("Home")}
+            >
+              <Text style={styles.buttonText}>Sign In</Text>
+            </TouchableOpacity>
 
             <TouchableOpacity style={styles.forgotPassword}>
               <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
