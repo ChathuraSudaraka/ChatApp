@@ -10,7 +10,7 @@ import {
   ImageBackground,
   Image,
   Animated,
-  SafeAreaView, // Import SafeAreaView
+  SafeAreaView,
 } from "react-native";
 
 export function SignIn() {
@@ -49,10 +49,14 @@ export function SignIn() {
               secureTextEntry={true}
               placeholderTextColor="#fff"
             />
-
-            <TouchableOpacity style={styles.signInButton}>
-              <Text style={styles.buttonText}>Sign In</Text>
-            </TouchableOpacity>
+            <View onPress={() => navigation.navigate("Home")}>
+              <TouchableOpacity
+                style={styles.signInButton}
+                onPress={() => navigation.navigate("Home")}
+              >
+                <Text style={styles.buttonText}>Sign In</Text>
+              </TouchableOpacity>
+            </View>
 
             <TouchableOpacity style={styles.forgotPassword}>
               <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
@@ -60,13 +64,11 @@ export function SignIn() {
 
             <View style={styles.signUpContainer}>
               <Text style={styles.signUpText}>Don't have an account?</Text>
-              <TouchableOpacity style={styles.signUpButton}>
-                <Text
-                  style={styles.signUpButtonText}
-                  onPress={() => navigation.navigate("SignUp")}
-                >
-                  Sign Up
-                </Text>
+              <TouchableOpacity
+                style={styles.signUpButton}
+                onPress={() => navigation.navigate("SignUp")}
+              >
+                <Text style={styles.signUpButtonText}>Sign Up</Text>
               </TouchableOpacity>
             </View>
           </Animated.View>

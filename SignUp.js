@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   selectInput: {
-    paddingVertical: 10, // Adjust this value to align the text input with the dropdown arrow
+    paddingVertical: 10,
   },
   signUpButton: {
     backgroundColor: "#007BFF",
