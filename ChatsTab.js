@@ -32,6 +32,62 @@ const ChatsScreen = ({ navigation }) => {
       timestamp: "3:15 PM",
       profileImage: require("./assets/logo.png"),
     },
+    {
+      id: "4",
+      name: "Bob",
+      message: "Let's meet tomorrow!",
+      timestamp: "3:15 PM",
+      profileImage: require("./assets/logo.png"),
+    },
+    {
+      id: "5",
+      name: "Bob",
+      message: "Let's meet tomorrow!",
+      timestamp: "3:15 PM",
+      profileImage: require("./assets/logo.png"),
+    },
+    {
+      id: "6",
+      name: "Bob",
+      message: "Let's meet tomorrow!",
+      timestamp: "3:15 PM",
+      profileImage: require("./assets/logo.png"),
+    },
+    {
+      id: "7",
+      name: "Bob",
+      message: "Let's meet tomorrow!",
+      timestamp: "3:15 PM",
+      profileImage: require("./assets/logo.png"),
+    },
+    {
+      id: "8",
+      name: "Bob",
+      message: "Let's meet tomorrow!",
+      timestamp: "3:15 PM",
+      profileImage: require("./assets/logo.png"),
+    },
+    {
+      id: "9",
+      name: "Bob",
+      message: "Let's meet tomorrow!",
+      timestamp: "3:15 PM",
+      profileImage: require("./assets/logo.png"),
+    },
+    {
+      id: "10",
+      name: "Bob",
+      message: "Let's meet tomorrow!",
+      timestamp: "3:15 PM",
+      profileImage: require("./assets/logo.png"),
+    },
+    {
+      id: "11",
+      name: "Bob",
+      message: "Let's meet tomorrow!",
+      timestamp: "3:15 PM",
+      profileImage: require("./assets/logo.png"),
+    },
     // Add more chat items as needed
   ];
 

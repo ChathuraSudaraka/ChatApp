@@ -4,6 +4,7 @@ import ChatsScreen from "./ChatsTab";
 import StatusScreen from "./StatusTab";
 import CallsScreen from "./CallTab";
 import { Ionicons } from "@expo/vector-icons";
+import { StyleSheet } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
@@ -30,21 +31,53 @@ export function Home() {
           fontSize: 14,
           fontWeight: "bold",
         },
-
-        tabBarStyle: [
-          {
-            display: "flex",
-          },
-          null,
-        ],
         tabBarStyle: {
-          backgroundColor: "#012223",
+          backgroundColor: "#012223", // Background color for the tab bar
         },
       })}
     >
-      <Tab.Screen name="Chats" component={ChatsScreen} />
-      <Tab.Screen name="Status" component={StatusScreen} />
-      <Tab.Screen name="Calls" component={CallsScreen} />
+      <Tab.Screen
+        name="Chats"
+        component={ChatsScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#012223", // Change this to your desired header color
+          },
+          headerTintColor: "#FFFFFF", // Change this to your desired text color
+          headerTitleStyle: {
+            fontSize: 20,
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Status"
+        component={StatusScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#012223", // Change this to your desired header color
+          },
+          headerTintColor: "#FFFFFF", // Change this to your desired text color
+          headerTitleStyle: {
+            fontSize: 20,
+            fontWeight: "bold",
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Calls"
+        component={CallsScreen}
+        options={{
+          headerStyle: {
+            backgroundColor: "#012223", // Change this to your desired header color
+          },
+          headerTintColor: "#FFFFFF", // Change this to your desired text color
+          headerTitleStyle: {
+            fontSize: 20,
+            fontWeight: "bold",
+          },
+        }}
+      />
     </Tab.Navigator>
   );
 }
